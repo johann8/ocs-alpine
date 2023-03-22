@@ -1,0 +1,65 @@
+version: '3'
+
+networks:
+   ocsNet:
+     ipam:
+       driver: default
+       config:
+         - subnet: ${SUBNET}.0/24
+
+services:
+  ocs-server:
+    image: johann8/alpine-ocs:${VERSION_OCS}
+    container_name : ocs-server
+    restart: always
+    #ports:                               # comment out if traefik is used
+      #- ${PORT0}:80                      # comment out if traefik is used
+    volumes:
+      - "${DOCKERDIR}/data/ocsinventory/perlcomdata:/etc/ocsinventory-server"
+      - "${DOCKERDIR}/data/ocsinventory/ocsreportsdata:/usr/share/ocsinventory-reports/ocsreports/extensions"
+      - "${DOCKERDIR}/data/ocsinventory/varlibdata:/var/lib/ocsinventory-reports"
+      - "${DOCKERDIR}/data/ocsinventory/httpdconfdata:/etc/apache2/conf.d"
+    environment:
+      TZ: ${TZ}
+      OCS_INVENTOTRY_INSTALL: true          # should be 'true' if Ocsinventory does not install. After installation please set to 'false'
+      OCS_DB_SERVER: ${OCS_DB_SERVER}
+      OCS_DB_USER: ${OCS_DB_USER}
+      OCS_DB_PASS: ${OCS_DB_PASS}
+      OCS_DB_NAME: ${OCS_DB_NAME}
+      # See documentation to set up SSL for MySQL
+      OCS_SSL_ENABLED: 0
+    links:
+      - ocsdb
+    depends_on:
+      - ocsdb
+    networks:
+      ocsNet:
+        #ipv4_address: ${SUBNET}.2
+        aliases:
+          - ocs-server
+
+  ocsdb:
+    image: mariadb:${VERSION_DB}
+    container_name: ocsdb
+    stop_grace_period: 45s
+    restart: unless-stopped
+    healthcheck:
+      test: "mysqladmin ping -h localhost -u$${MARIADB_USER} --password=$${MARIADB_PASSWORD}"
+      interval: 45s
+      timeout: 10s
+      retries: 5
+    restart: always
+    volumes:
+      - "${DOCKERDIR}/data/mariadb/dbdata:/var/lib/mysql:rw"
+      - "${DOCKERDIR}/data/mariadb/config:/etc/mysql/conf.d:ro"
+      #- "${DOCKERDIR}/data/mariadb/sql:/docker-entrypoint-initdb.d"   # comment out if this is a first installation
+      #- "${DOCKERDIR}/data/mariadb/socket:/var/run/mysqld"
+    environment:
+      MARIADB_DATABASE: ${MARIADB_DATABASE}
+      MARIADB_USER: ${MARIADB_USER}
+      MARIADB_PASSWORD: ${MARIADB_PASSWORD}
+      MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD}
+    ports:
+      - "127.0.0.1:53306:3306"
+    networks:
+      ocsNet:

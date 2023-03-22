@@ -1,0 +1,24 @@
+version: "3.0"
+services:
+
+  ocs-server:
+    labels:
+      - "traefik.enable=true"
+      ### ==== to https ====
+      - "traefik.http.routers.ocs-secure.entrypoints=websecure"
+      - "traefik.http.routers.ocs-secure.rule=Host(`$HOSTNAME0.$DOMAINNAME`)"
+      - "traefik.http.routers.ocs-secure.tls=true"
+      - "traefik.http.routers.ocs-secure.tls.certresolver=production"  # für eigene Zertifikate
+      ### ==== to service ====
+      - "traefik.http.routers.ocs-secure.service=ocs"
+      - "traefik.http.services.ocs.loadbalancer.server.port=$PORT"
+      - "traefik.docker.network=proxy"
+      ### ==== redirect to authelia for secure login ====
+      - "traefik.http.routers.ocs-secure.middlewares=rate-limit@file,secHeaders@file"
+      #- "traefik.http.routers.ocs-secure.middlewares=authelia@docker,rate-limit@file,secHeaders@file"
+    networks:
+      - proxy
+
+networks:
+  proxy:
+    external: true
