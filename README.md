@@ -1,6 +1,4 @@
-# OCS Inventory NG
-
-<h1 align="center">OCS Inventory</h1>
+<h1 align="center">OCS Inventoryi NG</h1>
 
 <p align='justify'>
 OCS (Open Computers and Software Inventory Next Generation) is an assets management and deployment solution.
