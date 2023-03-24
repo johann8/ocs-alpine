@@ -8,12 +8,12 @@ networks:
          - subnet: ${SUBNET}.0/24
 
 services:
-  ocs-server:
+  ocsapp:
     image: johann8/alpine-ocs:${VERSION_OCS}
-    container_name : ocs-server
+    container_name : ocsapp
     restart: always
-    #ports:                               # comment out if traefik is used
-      #- ${PORT0}:80                      # comment out if traefik is used
+    #ports:                                # comment out if traefik is used
+      #- ${PORT0}:80                       # comment out if traefik is used
     volumes:
       - "${DOCKERDIR}/data/ocsinventory/perlcomdata:/etc/ocsinventory-server"
       - "${DOCKERDIR}/data/ocsinventory/ocsreportsdata:/usr/share/ocsinventory-reports/ocsreports/extensions"
@@ -21,22 +21,19 @@ services:
       - "${DOCKERDIR}/data/ocsinventory/httpdconfdata:/etc/apache2/conf.d"
     environment:
       TZ: ${TZ}
-      OCS_INVENTOTRY_INSTALL: true          # should be 'true' if Ocsinventory does not install. After installation please set to 'false'
+      OCS_INVENTOTRY_INSTALL: true         # should be 'true' if Ocsinventory does not install. After installation please set to 'false'
       OCS_DB_SERVER: ${OCS_DB_SERVER}
       OCS_DB_USER: ${OCS_DB_USER}
       OCS_DB_PASS: ${OCS_DB_PASS}
       OCS_DB_NAME: ${OCS_DB_NAME}
       # See documentation to set up SSL for MySQL
       OCS_SSL_ENABLED: 0
-    links:
-      - ocsdb
     depends_on:
       - ocsdb
+    hostname: ${HOSTNAME1}.${DOMAINNAME}
     networks:
       ocsNet:
         #ipv4_address: ${SUBNET}.2
-        aliases:
-          - ocs-server
 
   ocsdb:
     image: mariadb:${VERSION_DB}
@@ -62,4 +59,35 @@ services:
     ports:
       - "127.0.0.1:53306:3306"
     networks:
-      ocsNet:
+      - ocsNet
+
+  ocsproxy:
+    image: nginx
+    container_name: ocsproxy
+    restart: always
+    ports:
+      #- 8082:80
+      - 4443:443
+    volumes:
+      - ${DOCKERDIR}/data/nginx/config:/etc/nginx/templates
+      - ${DOCKERDIR}/data/nginx/certs:/etc/nginx/certs
+      - ${DOCKERDIR}/data/nginx/auth:/etc/nginx/auth
+    environment:
+      # 80 or 443
+      LISTEN_PORT: 443
+      # empty or ssl
+      PORT_TYPE: "ssl"
+      SSL_CERT: ocs.crt
+      SSL_KEY: ocs.key
+      # OCS Api user restriction (default ocsapi/ocapi)
+      API_AUTH_FILE: ocsapi.htpasswd
+      # OCS Download
+      READ_TIMEOUT: 300
+      CONNECT_TIMEOUT: 300
+      SEND_TIMEOUT: 300
+      MAX_BODY_SIZE: 1G
+    depends_on:
+      - ocsapp
+    networks:
+      - ocsNet
+
