@@ -28,7 +28,13 @@ tree -d -L 3 ${DOCKERDIR}
 
 - Download config files
 ```bash
-
+DOCKERDIR=/opt/ocs
+cd ${DOCKERDIR}
+wget https://raw.githubusercontent.com/johann8/ocs-alpine/master/docker-compose.yml
+wget https://raw.githubusercontent.com/johann8/ocs-alpine/master/docker-compose.override.yml
+wget https://raw.githubusercontent.com/johann8/ocs-alpine/master/.env
+wget https://raw.githubusercontent.com/johann8/ocs-alpine/master/nginx/config/ocsinventory.conf.template
+mv ocsinventory.conf.template data/nginx/config
 ```
 
 - Generate a self-signed certificate for server `ocsinventory.mydomain.de`
