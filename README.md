@@ -68,3 +68,55 @@ DOCKERDIR=/opt/ocs
 htpasswd -bBc ${DOCKERDIR}/data/nginx/auth/ocsapi.htpasswd admin MyPassword
 ```
 
+- Install ocsinventory client CentOS/Rocky/oracle
+
+```bash
+# add repo
+dnf install http://rpm.ocsinventory-ng.org/ocsinventory-release-latest.el8.ocs.noarch.rpm
+dnf config-manager --set-enabled powertools
+dnf install ocsinventory-agent net-snmp-perl perl-Parse-EDID
+
+# create backup
+cp /etc/ocsinventory/ocsinventory-agent.cfg /etc/ocsinventory/ocsinventory-agent.cfg_orig
+
+# edit ocsinventory config files
+sed -i -e '/# server = your.ocsserver.name/c\server = https://ocsinventory.mydomain.de:4443/ocsinventory' /etc/ocsinventory/ocsinventory-agent.cfg
+sed -i -e 's/local =/basevarlib =/' \
+       -e 's/# tag = your_tag/tag = Linux_VM/' /etc/ocsinventory/ocsinventory-agent.cfg 
+
+echo ' ' >> /etc/ocsinventory/ocsinventory-agent.cfg 
+echo '# Additional options' >> /etc/ocsinventory/ocsinventory-agent.cfg 
+echo 'debug=1' >> /etc/ocsinventory/ocsinventory-agent.cfg 
+echo 'ssl=1' >> /etc/ocsinventory/ocsinventory-agent.cfg 
+echo 'ca=/etc/ocsinventory/cacert.pem' >> /etc/ocsinventory/ocsinventory-agent.cfg 
+
+# copy certificate 
+# On ocsinventory server: 
+DOCKERDIR=/opt/ocs
+cat ${DOCKERDIR}/cacert.pem
+
+# On ocsinventory client
+vim /etc/ocsinventory/cacert.pem
+--------------------
+paste cacert.pem
+--------------------
+
+# activate cron 
+sed -i -e 's/OCSMODE\[0\]=none/OCSMODE\[0\]=cron/' /etc/sysconfig/ocsinventory-agent
+
+# test ocinventory
+mv /etc/cron.hourly/ocsinventory-agent /etc/cron.daily/
+bash /etc/cron.daily/ocsinventory-agent
+tail -f -n2000   /var/log/ocsinventory-agent/ocsinventory-agent.log
+
+# if everything works then disable debug
+sed -i -e "s/debug=1/debug=0/" /etc/ocsinventory/ocsinventory-agent.cfg
+``` 
+
+- Set firewall rules
+
+```bash
+firewall-cmd --zone=public --add-port=4443/tcp --permanent
+firewall-cmd --reload
+firewall-cmd --zone=public --list-all
+```
