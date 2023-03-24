@@ -13,6 +13,7 @@ OCS Inventory NG asks its agents to know the software and hardware composition o
 ## Install OCS Inventory NG
 
 - create folders
+
 ```bash
 DOCKERDIR=/opt/ocs
 mkdir -p ${DOCKERDIR}/data/ocsinventory/{perlcomdata,ocsreportsdata,varlibdata,httpdconfdata} 
@@ -31,6 +32,7 @@ tree -d -L 3 ${DOCKERDIR}
 ```
 
 - Generate a self-signed certificate for server `ocsinventory.mydomain.de`
+
 ```bash
 # Generate private key
 openssl genrsa -out /etc/pki/tls/private/ca.key 2048 
@@ -47,17 +49,16 @@ cd /etc/pki/tls/certs && openssl x509 -in ca.crt -out cacert.pem
 cd -
 openssl x509 -in  /etc/pki/tls/certs/cacert.pem -text -noout
 
+# copy certificates
 DOCKERDIR=/opt/ocs
 cp /etc/pki/tls/private/ca.key ${DOCKERDIR}/data/nginx/certs/ocs.key
 cp /etc/pki/tls/certs/ca.crt ${DOCKERDIR}/data/nginx/certs/ocs.crt
 cp /etc/pki/tls/certs/cacert.pem ${DOCKERDIR}/
 ```
 - Generate basic auth file for API (if you want to use API)
+
 ```bash
 DOCKERDIR=/opt/ocs
 htpasswd -bBc ${DOCKERDIR}/data/nginx/auth/ocsapi.htpasswd admin MyPassword
 ```
-
-
-
 
