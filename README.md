@@ -68,7 +68,7 @@ DOCKERDIR=/opt/ocs
 htpasswd -bBc ${DOCKERDIR}/data/nginx/auth/ocsapi.htpasswd admin MyPassword
 ```
 
-- Install ocsinventory client CentOS/Rocky/oracle
+## Install ocsinventory client CentOS/Rocky/oracle
 
 ```bash
 # add repo
