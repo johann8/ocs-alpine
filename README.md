@@ -16,6 +16,7 @@ OCS Inventory NG asks its agents to know the software and hardware composition o
 DOCKERDIR=/opt/ocs
 mkdir -p ${DOCKERDIR}/data/ocsinventory/{perlcomdata,ocsreportsdata,varlibdata,httpdconfdata} 
 mkdir -p ${DOCKERDIR}/data/mariadb/{config,dbdata,socket}
+mkdir -p ${DOCKERDIR}/data/nginx/{config,certs,auth}
 chown -R 101:101 ${DOCKERDIR}/data/ocsinventory/perlcomdata/
 chown -R 101:101 ${DOCKERDIR}/data/ocsinventory/ocsreportsdata/
 chown -R 101:101 ${DOCKERDIR}/data/ocsinventory/varlibdata/
