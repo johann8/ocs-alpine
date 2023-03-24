@@ -68,7 +68,7 @@ DOCKERDIR=/opt/ocs
 htpasswd -bBc ${DOCKERDIR}/data/nginx/auth/ocsapi.htpasswd admin MyPassword
 ```
 
-## Install ocsinventory client CentOS/Rocky/oracle
+## Install ocsinventory client on CentOS/Rocky/oracle
 
 ```bash
 # add repo
@@ -120,3 +120,5 @@ firewall-cmd --zone=public --add-port=4443/tcp --permanent
 firewall-cmd --reload
 firewall-cmd --zone=public --list-all
 ```
+
+## Install ocsinventory client on Debian/Ubuntu
