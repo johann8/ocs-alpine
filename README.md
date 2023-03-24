@@ -11,6 +11,7 @@ OCS Inventory NG asks its agents to know the software and hardware composition o
 </p>
 
 ## Install OCS Inventory NG
+
 - create folders
 ```bash
 DOCKERDIR=/opt/ocs
@@ -23,3 +24,40 @@ chown -R 101:101 ${DOCKERDIR}/data/ocsinventory/varlibdata/
 cd ${DOCKERDIR}
 tree -d -L 3 ${DOCKERDIR}
 ```
+
+- Download config files
+```bash
+
+```
+
+- Generate a self-signed certificate for server `ocsinventory.mydomain.de`
+```bash
+# Generate private key
+openssl genrsa -out /etc/pki/tls/private/ca.key 2048 
+
+# Generate CSR (Common Name is ocsinventory.mydomain.de)
+openssl req -new -key /etc/pki/tls/private/ca.key -out /etc/pki/tls/private/ca.csr
+
+# Generate Self Signed Key
+openssl x509 -req -days 3650 -in /etc/pki/tls/private/ca.csr -signkey /etc/pki/tls/private/ca.key -out /etc/pki/tls/certs/ca.crt
+openssl x509 -in  /etc/pki/tls/certs/ca.crt -text -noout
+
+# convert crt to pem
+cd /etc/pki/tls/certs && openssl x509 -in ca.crt -out cacert.pem
+cd -
+openssl x509 -in  /etc/pki/tls/certs/cacert.pem -text -noout
+
+DOCKERDIR=/opt/ocs
+cp /etc/pki/tls/private/ca.key ${DOCKERDIR}/data/nginx/certs/ocs.key
+cp /etc/pki/tls/certs/ca.crt ${DOCKERDIR}/data/nginx/certs/ocs.crt
+cp /etc/pki/tls/certs/cacert.pem ${DOCKERDIR}/
+```
+- Generate basic auth file for API (if you want to use API)
+```bash
+DOCKERDIR=/opt/ocs
+htpasswd -bBc ${DOCKERDIR}/data/nginx/auth/ocsapi.htpasswd admin MyPassword
+```
+
+
+
+
