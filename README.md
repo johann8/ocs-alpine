@@ -182,3 +182,4 @@ tail -f -n2000   /var/log/ocsinventory-agent/ocsinventory-agent.log
 # # if everything works then disable debug
 sed -i "s/debug=1/debug=0/" /etc/ocsinventory/ocsinventory-agent.cfg 
 ```
+Enjoy !
