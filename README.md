@@ -122,3 +122,63 @@ firewall-cmd --zone=public --list-all
 ```
 
 ## Install ocsinventory client on Debian/Ubuntu
+
+```bash
+# create folder and file
+mkdir -p /var/log/ocsinventory-agent/
+touch /var/log/ocsinventory-agent/ocsinventory-agent.log
+
+# add repo
+curl -fsSL http://deb.ocsinventory-ng.org/pubkey.gpg | gpg --dearmor -o /etc/apt/trusted.gpg.d/ocs-archive-keyring.gpg
+echo "deb http://deb.ocsinventory-ng.org/debian/ bullseye main" | sudo tee /etc/apt/sources.list.d/ocsinventory.list
+apt-get update
+
+# Ocsinventory agent install and answer the questions as follows
+apt-get install ocsinventory-agent
+y
+0
+y
+y
+https://ocsinventory.mydomain.de:4443
+n
+y
+Linux
+y
+enter
+y
+y
+enter
+y
+/var/log/ocsinventory-agent/ocsinventory-agent.log
+n
+y
+/etc/ocsinventory/cacert.pem
+y
+n
+y
+
+# show cron job
+cat /etc/cron.d/ocsinventory-agent
+-----------------------
+PATH=/usr/sbin:/usr/bin:/sbin:/bin
+3 8 * * * root /usr/bin/ocsinventory-agent --lazy > /dev/null 2>&1
+----------------------
+
+# show config file
+cat /etc/ocsinventory/ocsinventory-agent.cfg 
+
+# paste here cacert.pem certificate from ocsinventory server
+vim /etc/ocsinventory/cacert.pem
+------------------
+paste cacert.pem
+-----------------
+
+# run first inventory
+/usr/bin/ocsinventory-agent --lazy
+
+# show log
+tail -f -n2000   /var/log/ocsinventory-agent/ocsinventory-agent.log
+
+# # if everything works then disable debug
+sed -i "s/debug=1/debug=0/" /etc/ocsinventory/ocsinventory-agent.cfg 
+```
