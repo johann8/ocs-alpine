@@ -18,6 +18,8 @@ LABEL org.label-schema.schema-version="1.0" \
 
 ENV OCS_VERSION 2.11.1
 
+ENV MOD_PERL_VERSION 2.0.12
+
 ARG APK_FLAGS="add --no-cache"
 
 ENV APACHE_RUN_USER=apache \
@@ -99,13 +101,15 @@ RUN apk ${APK_FLAGS} \
     apr-dev \
     apr-util-dev \
     && cd /tmp \
-    && wget https://dlcdn.apache.org/perl/mod_perl-2.0.12.tar.gz \
-    && tar -zxvf mod_perl-2.0.12.tar.gz \
-    && cd mod_perl-2.0.12 \
+    && wget https://dlcdn.apache.org/perl/mod_perl-${MOD_PERL_VERSION}.tar.gz \
+    && tar -zxvf mod_perl-${MOD_PERL_VERSION}.tar.gz \
+    && cd mod_perl-${MOD_PERL_VERSION} \
     && perl Makefile.PL MP_APXS=/usr/bin/apxs \
     && make \
     && make install \
-    && rm -rf mod_perl-2.0.12.tar.gz mod_perl-2.0.12
+    && cd / \
+    && rm -rf /tmp/mod_perl-2.0.12.tar.gz \
+    && rm -rf /tmp/mod_perl-2.0.12
 
 # install ocsinventory dependencies
 RUN apk ${APK_FLAGS} \
