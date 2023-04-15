@@ -28,6 +28,7 @@ services:
       OCS_DB_NAME: ${OCS_DB_NAME}
       # See documentation to set up SSL for MySQL
       OCS_SSL_ENABLED: 0
+      OCS_DISABLE_API_MODE: 0              # must be set to "1" if api should be activated
     depends_on:
       - ocsdb
     hostname: ${HOSTNAME1}.${DOMAINNAME}
