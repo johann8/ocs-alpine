@@ -1,14 +1,23 @@
 <h1 align="center">OCS Inventoryi NG</h1>
-
-| pull | size alpine | version | platform |
-|:---------------------------------:|:----------------------------------:|:--------------------------------:|:--------------------------------:|
-| ![Docker Pulls](https://img.shields.io/docker/pulls/johann8/alpine-ocs?style=flat-square) | ![Docker Image Size (latest by date)](https://img.shields.io/docker/image-size/johann8/alpine-ocs/latest) | [![](https://img.shields.io/docker/v/johann8/alpine-ocs?sort=date)](https://hub.docker.com/r/johann8/alpine-ocs/tags "Version badge") | ![](https://img.shields.io/badge/platform-amd64-blue "Platform badge") |
-
 <p align='justify'>
 OCS (Open Computers and Software Inventory Next Generation) is an assets management and deployment solution.
 Since 2001, OCS Inventory NG has been looking for making software and hardware more powerful.
 OCS Inventory NG asks its agents to know the software and hardware composition of every computer or server.
 </p>
+
+- [OCS Inventory Docker Image](#ocs-inventory-docker-image)
+- [Install OCS Inventory NG](#install-ocs-inventory-ng)
+  - [Setup Plugins](#setup-plugins)
+  - [Configuration](#configuration)
+  - [Manage](#manage)
+  - [Inventory](#inventory)
+- [Install ocsinventory client on CentOS/Rocky/Oracle](#install-ocsinventory-client-on-centos/rocky/oracle)
+- [Install ocsinventory client on Debian/Ubuntu](#install-ocsinventory-client-on-debian/ubuntu)
+
+## OCS Inventory Docker Image]
+| pull | size alpine | version | platform |
+|:---------------------------------:|:----------------------------------:|:--------------------------------:|:--------------------------------:|
+| ![Docker Pulls](https://img.shields.io/docker/pulls/johann8/alpine-ocs?style=flat-square) | ![Docker Image Size (latest by date)](https://img.shields.io/docker/image-size/johann8/alpine-ocs/latest) | [![](https://img.shields.io/docker/v/johann8/alpine-ocs?sort=date)](https://hub.docker.com/r/johann8/alpine-ocs/tags "Version badge") | ![](https://img.shields.io/badge/platform-amd64-blue "Platform badge") |
 
 ## Install OCS Inventory NG
 
@@ -68,7 +77,61 @@ DOCKERDIR=/opt/ocs
 htpasswd -bBc ${DOCKERDIR}/data/nginx/auth/ocsapi.htpasswd admin MyPassword
 ```
 
-## Install ocsinventory client on CentOS/Rocky/oracle
+## Setup Plugins
+- Download plugins
+```bash
+DOCKERDIR=/opt/inventory
+cd ${DOCKERDIR}/data/ocsinventory/ocsreportsdata/
+
+# Download Windows plugins
+wget https://github.com/PluginsOCSInventory-NG/officepack/releases/download/3.4/officepack.zip
+wget https://github.com/PluginsOCSInventory-NG/uptime/releases/download/2.1/uptime.zip
+wget https://github.com/PluginsOCSInventory-NG/winupdate/releases/download/3.0/winupdate.zip
+wget https://github.com/PluginsOCSInventory-NG/defaultwindowsapp/releases/download/v1.1/defaultwindowsapp.zip
+wget https://github.com/PluginsOCSInventory-NG/networkshare/releases/download/v3.0/networkshare.zip
+wget https://github.com/PluginsOCSInventory-NG/listprinters/releases/download/v2.0/listprinters.zip
+wget https://github.com/PluginsOCSInventory-NG/osinstall/releases/download/2.0/osinstall.zip
+wget https://github.com/PluginsOCSInventory-NG/winserverfeatures/releases/download/1.0/winserverfeatures.zip
+wget https://github.com/PluginsOCSInventory-NG/anydesk/releases/download/2.2/anydesk.zip
+wget https://github.com/PluginsOCSInventory-NG/security/releases/download/2.0/security.zip
+wget https://github.com/PluginsOCSInventory-NG/wmiproductlist/releases/download/2.0/wmiproductlist.zip
+wget https://github.com/PluginsOCSInventory-NG/winsecdetails/releases/download/1.0/winsecdetails.zip
+
+# Linux plugins
+wget https://github.com/PluginsOCSInventory-NG/crontabTasks/releases/download/v2.1/crontabtasks.zip
+wget https://github.com/PluginsOCSInventory-NG/lastpublicip/releases/download/1.1/lastpublicip.zip
+```
+- Extract plugins
+```bash
+unzip officepack.zip && rm -rf officepack.zip
+unzip uptime.zip -d uptime && rm -rf uptime.zip
+unzip winupdate.zip && rm -rf winupdate.zip
+unzip defaultwindowsapp.zip && rm -rf defaultwindowsapp.zip
+unzip networkshare.zip && rm -rf networkshare.zip
+unzip listprinters.zip && rm -rf listprinters.zip
+unzip osinstall.zip && rm -rf osinstall.zip
+unzip winserverfeatures.zip && rm -rf winserverfeatures.zip
+unzip anydesk.zip && rm -rf anydesk.zip && chmod -R o-w anydesk
+unzip security.zip && rm -rf security.zip
+unzip wmiproductlist.zip && rm -rf wmiproductlist.zip
+unzip winsecdetails.zip && rm -rf winsecdetails.zip
+unzip crontabtasks.zip && rm -rf crontabtasks.zip
+unzip lastpublicip.zip && rm -rf lastpublicip.zip
+chown -R 101:101 ${DOCKERDIR}/data/ocsinventory/ocsreportsdata/
+```
+
+### Install plugins via WebGUI
+- Got to http://ocs.changeme.de/ocsreports/ 
+- Login and go to =>Extensions =>Extensions manager
+
+## Configuration
+
+## Manage
+
+## Inventory
+
+
+## Install ocsinventory client on CentOS/Rocky/Oracle
 
 ```bash
 # add repo
