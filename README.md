@@ -137,7 +137,11 @@ chown -R 101:101 ${DOCKERDIR}/data/ocsinventory/ocsreportsdata/
   SECURITY_PASSWORD_MIN_CHAR -> 7<br>
   SECURITY_PASSWORD_FORCE_NB -> On<br>
   ECURITY_PASSWORD_FORCE_UPPER -> On 
-- Configuration =>General configuration =>Inventory files: GENERATE_OCS_FILES -> On; OCS_FILES_OVERWRITE -> On;
+
+- Configuration =>General configuration =>Inventory files:<br>
+  GENERATE_OCS_FILES -> On<br>
+  OCS_FILES_OVERWRITE -> On
+
 - Configuration =>General configuration =>LDAP configuration => Set as in picture
 
 - Configuration =>Users =>Profiles =>sadmin => Set as in picture
