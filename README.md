@@ -130,12 +130,12 @@ chown -R 101:101 ${DOCKERDIR}/data/ocsinventory/ocsreportsdata/
 - Configuration =>General configuration =>Deployment: DOWNLOAD -> On; 
 - Configuration =>General configuration =>Registry: REGISTRY -> On;
 - Configuration =>General configuration =>Interface: ACTIVE_NEWS -> On; LOG_GUI -> On;
-- Configuration =>General configuration =>Security: \
-  SECURITY_AUTHENTICATION_NB_ATTEMPT -> 3\
-  SECURITY_AUTHENTICATION_TIME_BLOCK -> 60\ 
-  SECURITY_PASSWORD_ENABLED -> On\ 
-  SECURITY_PASSWORD_MIN_CHAR -> 7\ 
-  SECURITY_PASSWORD_FORCE_NB -> On\ 
+- Configuration =>General configuration =>Security:<br>
+  SECURITY_AUTHENTICATION_NB_ATTEMPT -> 3<br>
+  SECURITY_AUTHENTICATION_TIME_BLOCK -> 60<br>
+  SECURITY_PASSWORD_ENABLED -> On<br>
+  SECURITY_PASSWORD_MIN_CHAR -> 7<br>
+  SECURITY_PASSWORD_FORCE_NB -> On<br>
   ECURITY_PASSWORD_FORCE_UPPER -> On 
 - Configuration =>General configuration =>Inventory files: GENERATE_OCS_FILES -> On; OCS_FILES_OVERWRITE -> On;
 - Configuration =>General configuration =>LDAP configuration => Set as in picture
