@@ -1,6 +1,6 @@
 <h1 align="center">OCS Inventoryi NG</h1>
 <p align='justify'>
-OCS (Open Computers and Software Inventory Next Generation) is an assets management and deployment solution.
+[OCS](https://ocsinventory-ng.org) (Open Computers and Software Inventory Next Generation) is an assets management and deployment solution.
 Since 2001, OCS Inventory NG has been looking for making software and hardware more powerful.
 OCS Inventory NG asks its agents to know the software and hardware composition of every computer or server.
 </p>
