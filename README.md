@@ -126,6 +126,7 @@ chown -R 101:101 ${DOCKERDIR}/data/ocsinventory/ocsreportsdata/
 
 ## Configuration
 - Configuration =>General configuration =>Server => Set as in picture
+![General configuration Server](https://raw.githubusercontent.com/johann8/ocs-alpine/master/docs/assets/screenshots/OCS_configuration_server.png)
 
 - Configuration =>General configuration =>Deployment: DOWNLOAD -> On; 
 - Configuration =>General configuration =>Registry: REGISTRY -> On;
@@ -143,16 +144,21 @@ chown -R 101:101 ${DOCKERDIR}/data/ocsinventory/ocsreportsdata/
   OCS_FILES_OVERWRITE -> On
 
 - Configuration =>General configuration =>LDAP configuration => Set as in picture
+![General configuration LDAP](https://raw.githubusercontent.com/johann8/ocs-alpine/master/docs/assets/screenshots/OCS_configuration_LDAP-configuration.png)
 
 - Configuration =>Users =>Profiles =>sadmin => Set as in picture
-
+![General Users Profile](https://raw.githubusercontent.com/johann8/ocs-alpine/master/docs/assets/screenshots/OCS_configuration_user-profiles-sadmin.png)
 
 ## Manage
 - Manage =>Assets categories => Set as in picture
+![Manage Assets categories](https://raw.githubusercontent.com/johann8/ocs-alpine/master/docs/assets/screenshots/OCS_manage_assets-categories.png)
+
 - Manage =>Administrative data => Set as in picture
+![Manage Administrative data](https://raw.githubusercontent.com/johann8/ocs-alpine/master/docs/assets/screenshots/OCS_manage_administrative-data.png)
 
 ## Inventory
 - Inventory =>Groups => Set as in picture
+![Inventory Groups ](https://raw.githubusercontent.com/johann8/ocs-alpine/master/docs/assets/screenshots/OCS_inventory_groups.png)
 
 ## Install ocsinventory client on CentOS/Rocky/Oracle
 
