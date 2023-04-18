@@ -130,7 +130,7 @@ chown -R 101:101 ${DOCKERDIR}/data/ocsinventory/ocsreportsdata/
 
 - Configuration =>General configuration =>Deployment: DOWNLOAD -> On; 
 - Configuration =>General configuration =>Registry: REGISTRY -> On;
-- Configuration =>General configuration =>Interface: 
+- Configuration =>General configuration =>Interface:<br> 
   ACTIVE_NEWS -> On<br>
   LOG_GUI -> On<br>
 - Configuration =>General configuration =>Security:<br>
