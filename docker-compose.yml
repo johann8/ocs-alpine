@@ -63,7 +63,7 @@ services:
       - ocsNet
 
   ocsproxy:
-    image: nginx
+    image: nginx:stable-alpine3.17
     container_name: ocsproxy
     restart: always
     ports:
