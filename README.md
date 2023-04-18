@@ -130,7 +130,9 @@ chown -R 101:101 ${DOCKERDIR}/data/ocsinventory/ocsreportsdata/
 
 - Configuration =>General configuration =>Deployment: DOWNLOAD -> On; 
 - Configuration =>General configuration =>Registry: REGISTRY -> On;
-- Configuration =>General configuration =>Interface: ACTIVE_NEWS -> On; LOG_GUI -> On;
+- Configuration =>General configuration =>Interface: 
+  ACTIVE_NEWS -> On<br>
+  LOG_GUI -> On<br>
 - Configuration =>General configuration =>Security:<br>
   SECURITY_AUTHENTICATION_NB_ATTEMPT -> 3<br>
   SECURITY_AUTHENTICATION_TIME_BLOCK -> 60<br>
