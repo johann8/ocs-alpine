@@ -172,6 +172,7 @@ DOCKERDIR=/opt/ocs
 cd ${DOCKERDIR}
 docker-compose down && docker-compose up -d
 ```
+- Restapi documentation is [here](https://wiki.ocsinventory-ng.org/11.Rest-API/GET-Routes/)
 
 ## Manage
 - Manage =>Assets categories => Set as in picture
