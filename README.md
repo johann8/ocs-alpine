@@ -153,11 +153,11 @@ chown -R 101:101 ${DOCKERDIR}/data/ocsinventory/ocsreportsdata/
 ![General Users Profile](https://raw.githubusercontent.com/johann8/ocs-alpine/master/docs/assets/screenshots/OCS_configuration_user-profiles-sadmin.png)
 
 ## Restapi
-if variable `OCS_DISABLE_API_MODE: 0` in `docker-compose.yml` is commented, then restapi is disabled. You do not have to configure anything more.
+If variable `OCS_DISABLE_API_MODE: 0` in `docker-compose.yml` is commented, then restapi is disabled. You do not have to configure anything more.
 Otherwise `location ocsapi` must be protected from unauthorized access. You must change the preconfigured user and password in file `.htpasswd-ocsapi` (default admin/ocsAPI). You can access this file from docker host.
 
 ```bash
-# Generate password
+# Generate password for example "MyPassword22"
 htpasswd -nbBC 10 admin MyPassword22
 
 # Entry insert
