@@ -80,8 +80,6 @@ services:
       PORT_TYPE: "ssl"
       SSL_CERT: ocs.crt
       SSL_KEY: ocs.key
-      # OCS Api user restriction (default ocsapi/ocapi)
-      API_AUTH_FILE: ocsapi.htpasswd
       # OCS Download
       READ_TIMEOUT: 300
       CONNECT_TIMEOUT: 300
