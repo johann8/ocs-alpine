@@ -9,6 +9,7 @@ OCS Inventory NG asks its agents to know the software and hardware composition o
 - [Install OCS Inventory NG](#install-ocs-inventory-ng)
   - [Setup Plugins](#setup-plugins)
   - [Configuration](#configuration)
+  - [Restapi](#restapi)
   - [Manage](#manage)
   - [Inventory](#inventory)
 - [Install ocsinventory client on CentOS/Rocky/Oracle](#install-ocsinventory-client-on-centosrockyoracle)
@@ -150,6 +151,27 @@ chown -R 101:101 ${DOCKERDIR}/data/ocsinventory/ocsreportsdata/
 
 - Configuration =>Users =>Profiles =>sadmin => Set as in picture
 ![General Users Profile](https://raw.githubusercontent.com/johann8/ocs-alpine/master/docs/assets/screenshots/OCS_configuration_user-profiles-sadmin.png)
+
+## Restapi
+if variable `OCS_DISABLE_API_MODE: 0` in `docker-compose.yml` is commented, then restapi is disabled. You do not have to configure anything more.
+Otherwise `location ocsapi` must be protected from unauthorized access. You must change the preconfigured user and password in file `.htpasswd-ocsapi` (default admin/ocsAPI). You can access this file from docker host.
+
+```bash
+# Generate password
+htpasswd -nbBC 10 admin MyPassword22
+
+# Entry insert
+DOCKERDIR=/opt/ocs
+vim ${DOCKERDIR}/data/ocsinventory/httpdconfdata/.htpasswd-ocsapi
+-----
+admin:$2y$10$b9sZIIF3xizmn2iywf0JjeoC8cT.LDEv3.tGTtYbJu5HIvfkEMKKa
+-----
+
+# restart docker container
+DOCKERDIR=/opt/ocs
+cd ${DOCKERDIR}
+docker-compose down && docker-compose up -d
+```
 
 ## Manage
 - Manage =>Assets categories => Set as in picture
