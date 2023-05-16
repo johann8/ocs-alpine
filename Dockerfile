@@ -1,4 +1,4 @@
-ARG BASE_IMAGE=alpine:3.17
+ARG BASE_IMAGE=alpine:3.18
 
 FROM ${BASE_IMAGE}
 
@@ -46,7 +46,7 @@ ENV APACHE_RUN_USER=apache \
     OCS_SSL_CA=/path/to/ca
 
 ENV TZ Europe/Berlin
-ENV PHP_VERSION=81
+ENV PHP_VERSION 81
 ENV UPLOAD_MAX_FILESIZE 100M
 ENV POST_MAX_SIZE 50M
 
@@ -144,7 +144,7 @@ RUN echo "yes" | perl -MCPAN -e "install App::cpanminus" \
  && cpanm Apache::DBI \
  && cpanm XML::Entities \
  && cpanm XML::Parser::Lite --force \
- && cpanm SOAP::Lite \
+ && cpanm SOAP::Lite --force \
  && rm -rf /root/.cpan
 
 # install ocsinventory
