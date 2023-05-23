@@ -16,9 +16,9 @@ OCS Inventory NG asks its agents to know the software and hardware composition o
 - [Install ocsinventory client on Debian/Ubuntu](#install-ocsinventory-client-on-debianubuntu)
 
 ## OCS Inventory Docker Image
-| pull | size alpine | version | platform |
-|:---------------------------------:|:----------------------------------:|:--------------------------------:|:--------------------------------:|
-| ![Docker Pulls](https://img.shields.io/docker/pulls/johann8/alpine-ocs?logo=docker&label=pulls&style=flat-square&color=blue) | ![Docker Image Size](https://img.shields.io/docker/image-size/johann8/alpine-ocs/latest?logo=docker&style=flat-square&color=blue&sort=semver) | [![](https://img.shields.io/docker/v/johann8/alpine-ocs/latest?logo=docker&style=flat-square&color=blue&sort=semver)](https://hub.docker.com/r/johann8/alpine-ocs/tags "Version badge") | ![](https://img.shields.io/badge/platform-amd64-blue "Platform badge") |
+| pull | size alpine | version | platform | alpine version |
+|:---------------------------------:|:----------------------------------:|:--------------------------------:|:--------------------------------:|:--------------------------------:|
+| ![Docker Pulls](https://img.shields.io/docker/pulls/johann8/alpine-ocs?logo=docker&label=pulls&style=flat-square&color=blue) | ![Docker Image Size](https://img.shields.io/docker/image-size/johann8/alpine-ocs/latest?logo=docker&style=flat-square&color=blue&sort=semver) | [![](https://img.shields.io/docker/v/johann8/alpine-ocs/latest?logo=docker&style=flat-square&color=blue&sort=semver)](https://hub.docker.com/r/johann8/alpine-ocs/tags "Version badge") | ![](https://img.shields.io/badge/platform-amd64-blue "Platform badge") | [![Alpine Version](https://img.shields.io/badge/Alpine%20version-v3.18.0-blue.svg?style=flat-square)](https://alpinelinux.org/) |
 
 ## Install OCS Inventory NG
 
