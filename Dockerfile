@@ -18,7 +18,7 @@ LABEL org.label-schema.schema-version="1.0" \
 
 ENV OCS_VERSION 2.12.1
 
-ENV MOD_PERL_VERSION 2.0.12
+ENV MOD_PERL_VERSION 2.0.13
 
 ARG APK_FLAGS="add --no-cache"
 
