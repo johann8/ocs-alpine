@@ -1,4 +1,4 @@
-ARG BASE_IMAGE=alpine:3.18
+ARG BASE_IMAGE=alpine:3.19
 
 FROM ${BASE_IMAGE}
 
@@ -76,6 +76,7 @@ RUN apk ${APK_FLAGS} \
     php${PHP_VERSION}-fpm \
     php${PHP_VERSION}-session \
     php${PHP_VERSION}-dom \
+    php${PHP_VERSION}-gettext \
 # Bring in gettext so we can get `envsubst`, then throw
 # the rest away. To do this, we need to install `gettext`
 # then move `envsubst` out of the way so `gettext` can
