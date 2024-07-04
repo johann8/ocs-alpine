@@ -1,4 +1,4 @@
-ARG BASE_IMAGE=alpine:3.19
+ARG BASE_IMAGE=alpine:3.20
 
 FROM ${BASE_IMAGE}
 
@@ -46,7 +46,7 @@ ENV APACHE_RUN_USER=apache \
     OCS_SSL_CA=/path/to/ca
 
 ENV TZ Europe/Berlin
-ENV PHP_VERSION 81
+ENV PHP_VERSION 82
 ENV UPLOAD_MAX_FILESIZE 100M
 ENV POST_MAX_SIZE 50M
 
@@ -109,8 +109,8 @@ RUN apk ${APK_FLAGS} \
     && make \
     && make install \
     && cd / \
-    && rm -rf /tmp/mod_perl-2.0.12.tar.gz \
-    && rm -rf /tmp/mod_perl-2.0.12
+    && rm -rf /tmp/mod_perl-${MOD_PERL_VERSION}.tar.gz \
+    && rm -rf /tmp/mod_perl-${MOD_PERL_VERSION}
 
 # install ocsinventory dependencies
 RUN apk ${APK_FLAGS} \
