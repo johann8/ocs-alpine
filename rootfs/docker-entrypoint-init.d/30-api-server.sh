@@ -9,9 +9,8 @@ if [ ! -z "${OCS_DISABLE_API_MODE}" ] || [ ! -z "${OCS_DISABLE_COM_MODE}" ]; the
 	exit 0
 fi
 
-#API_CONF_FILE="/etc/apache2/conf-available/zz-ocsinventory-restapi.conf"
 API_CONF_FILE="/etc/apache2/conf.d/zz-ocsinventory-restapi.conf"
-# Route fpr API
+# Route for API
 # Pfad [2] /usr/lib/perl5/vendor_perl
 #API_ROUTE=$(perl -e "print \"@INC[2]\"")
 #
@@ -33,6 +32,3 @@ if [ ! -f ${API_CONF_FILE} ]; then
 	sed -i 's/REST_API_PATH/'"${API_ROUTE//\//\\/}"'/g' ${API_CONF_FILE}
 	sed -i 's/REST_API_LOADER_PATH/'"${API_ROUTE_LOADER//\//\\/}"'/g' ${API_CONF_FILE}
 fi
-
-# Enable conf
-#a2enconf zz-ocsinventory-restapi
