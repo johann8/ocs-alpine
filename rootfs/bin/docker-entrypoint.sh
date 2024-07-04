@@ -43,7 +43,7 @@ for script in $(find /docker-entrypoint-init.d/ -executable -type f | sort); do
 done
 echo "Finished startup scripts in /docker-entrypoint-init.d"
 
-# JH addded on 19.03.2023
+# JH changed on 04.07.2024
 # ========= Start ==========
 
 # Set options into custom.ini
@@ -63,16 +63,16 @@ echo "[done]"
 echo -n "Setting \"post_max_size\" into custom.ini...      "
 sed -i -e '/post_max_size= /c\post_max_size= '${POST_MAX_SIZE}'' /etc/php${PHP_VERSION}/conf.d/custom.ini
 echo "[done]"
-#echo ""
-# ========== END ==========
 
-# If exists file php81-module.conf, then move
+# If exists file php81-module.conf, then remove
 if [[ -f /etc/apache2/conf.d/php81-module.conf ]]; then
    echo -n "Removing php81 config file...                  "
-   mv /etc/apache2/conf.d/php81-module.conf /etc/apache2/conf.d/php81-module.conf_
+   rm -rf /etc/apache2/conf.d/php81-module.conf
    echo "[done]"
 fi
+
 echo ""
+# ========== END ==========
 
 echo "Starting runit..."
 exec runsvdir -P /etc/service &
