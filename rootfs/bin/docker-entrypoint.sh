@@ -1,4 +1,6 @@
 #!/bin/sh
+#
+PHP_VERSION=82
 
 shutdown() {
   echo "shutting down container"
@@ -47,23 +49,30 @@ echo "Finished startup scripts in /docker-entrypoint-init.d"
 # Set options into custom.ini
 echo ""
 echo -n "Setting \"date.timezone\" into custom.ini...      "
-sed -i -e '/date.timezone=/c\date.timezone="'${TZ}'"' /etc/php81/conf.d/custom.ini
+sed -i -e '/date.timezone=/c\date.timezone="'${TZ}'"' /etc/php${PHP_VERSION}/conf.d/custom.ini
 echo "[done]"
 
 echo -n "Setting \"date.timezone\" into php.ini...         "
-sed -i -e '/;date.timezone =/c\date.timezone = '${TZ}'' /etc/php81/php.ini
+sed -i -e '/;date.timezone =/c\date.timezone = '${TZ}'' /etc/php${PHP_VERSION}/php.ini
 echo "[done]"
 
 echo -n "Setting \"upload_max_filesize\" into custom.ini..."
-sed -i -e '/upload_max_filesize= /c\upload_max_filesize= '${UPLOAD_MAX_FILESIZE}'' /etc/php81/conf.d/custom.ini
+sed -i -e '/upload_max_filesize= /c\upload_max_filesize= '${UPLOAD_MAX_FILESIZE}'' /etc/php${PHP_VERSION}/conf.d/custom.ini
 echo "[done]"
 
 echo -n "Setting \"post_max_size\" into custom.ini...      "
-sed -i -e '/post_max_size= /c\post_max_size= '${POST_MAX_SIZE}'' /etc/php81/conf.d/custom.ini
+sed -i -e '/post_max_size= /c\post_max_size= '${POST_MAX_SIZE}'' /etc/php${PHP_VERSION}/conf.d/custom.ini
 echo "[done]"
-echo ""
+#echo ""
 # ========== END ==========
 
+# If exists file php81-module.conf, then move
+if [[ -f /etc/apache2/conf.d/php81-module.conf ]]; then
+   echo -n "Removing php81 config file...                  "
+   mv /etc/apache2/conf.d/php81-module.conf /etc/apache2/conf.d/php81-module.conf_
+   echo "[done]"
+fi
+echo ""
 
 echo "Starting runit..."
 exec runsvdir -P /etc/service &
