@@ -16,7 +16,7 @@ LABEL org.label-schema.schema-version="1.0" \
       org.label-schema.vcs-url="https://github.com/johann8/" \
       org.label-schema.version=$VERSION
 
-ENV OCS_VERSION 2.12.2
+ENV OCS_VERSION 2.12.3
 
 ENV MOD_PERL_VERSION 2.0.13
 
