@@ -46,7 +46,9 @@ ENV APACHE_RUN_USER=apache \
     OCS_SSL_CA=/path/to/ca
 
 ENV TZ Europe/Berlin
-ENV PHP_VERSION 82
+#ENV PHP_VERSION 82
+ENV PHP_VERSION 83
+#ENV PHP_VERSION 84
 ENV UPLOAD_MAX_FILESIZE 100M
 ENV POST_MAX_SIZE 50M
 
@@ -146,6 +148,7 @@ RUN echo "yes" | perl -MCPAN -e "install App::cpanminus" \
  && cpanm XML::Entities \
  && cpanm XML::Parser::Lite --force \
  && cpanm SOAP::Lite --force \
+ && cpanm Apache2::SOAP --force \
  && rm -rf /root/.cpan
 
 # install ocsinventory
