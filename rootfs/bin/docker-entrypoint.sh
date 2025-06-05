@@ -1,6 +1,8 @@
 #!/bin/sh
 #
-PHP_VERSION=82
+#PHP_VERSION=82
+PHP_VERSION=83
+#PHP_VERSION=84
 
 shutdown() {
   echo "shutting down container"
@@ -65,9 +67,43 @@ sed -i -e '/post_max_size= /c\post_max_size= '${POST_MAX_SIZE}'' /etc/php${PHP_V
 echo "[done]"
 
 # If exists file php81-module.conf, then remove
-if [[ -f /etc/apache2/conf.d/php81-module.conf ]]; then
+if [[ -f /etc/apache2/conf.d/php81-module.conf ]] && [[ ${PHP_VERSION} –ne 81 ]]; then
    echo -n "Removing php81 config file...                  "
    rm -rf /etc/apache2/conf.d/php81-module.conf
+   echo "[done]"
+fi
+
+# If exists file php82-module.conf, then remove
+if [[ -f /etc/apache2/conf.d/php82-module.conf ]] && [[ ${PHP_VERSION} –ne 82 ]]; then
+   echo -n "Removing php82 config file...                  "
+   rm -rf /etc/apache2/conf.d/php82-module.conf
+   echo "[done]"
+fi
+
+# If exists file php83-module.conf, then remove
+if [[ -f /etc/apache2/conf.d/php83-module.conf ]] && [[ ${PHP_VERSION} –ne 83 ]]; then
+   echo -n "Removing php83 config file...                  "
+   rm -rf /etc/apache2/conf.d/php83-module.conf
+   echo "[done]"
+fi
+
+# If exists file php84-module.conf, then remove
+if [[ -f /etc/apache2/conf.d/php84-module.conf ]] && [[ ${PHP_VERSION} –ne 84 ]]; then
+   echo -n "Removing php84 config file...                  "
+   rm -rf /etc/apache2/conf.d/php84-module.conf
+   echo "[done]"
+fi
+
+# Copy apache2 config file
+if [[ -f /apache-conf-dir.tgz ]]; then
+   echo -n "Moving Apache config file...                  "
+   (
+   mkdir /tmp/33
+   tar -xzvf /apache-conf-dir.tgz -C /tmp/33/ > /dev/null 2>&1
+   mv -f /tmp/33/etc/apache2/conf.d/* /etc/apache2/conf.d/
+   mv -f /tmp/33/etc/apache2/conf.d/.* /etc/apache2/conf.d/
+   rm -rf /tmp/33
+   )
    echo "[done]"
 fi
 
