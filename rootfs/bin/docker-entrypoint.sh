@@ -96,12 +96,12 @@ fi
 
 # Copy apache2 config file
 if [[ -f /apache-conf-dir.tgz ]]; then
-   echo -n "Moving Apache config file...                  "
+   echo -n "Moving Apache config file...                    "
    (
    mkdir /tmp/33
    tar -xzvf /apache-conf-dir.tgz -C /tmp/33/ > /dev/null 2>&1
    mv -f /tmp/33/etc/apache2/conf.d/* /etc/apache2/conf.d/
-   mv -f /tmp/33/etc/apache2/conf.d/.* /etc/apache2/conf.d/
+   mv -f /tmp/33/etc/apache2/conf.d/.htpasswd-ocsapi /etc/apache2/conf.d/
    rm -rf /tmp/33
    )
    echo "[done]"
