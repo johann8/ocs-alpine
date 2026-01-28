@@ -21,6 +21,7 @@ services:
       - "${DOCKERDIR}/data/ocsinventory/httpdconfdata:/etc/apache2/conf.d"
     environment:
       TZ: ${TZ}
+      PREFERRED_LANGUAGE: ${PREFERRED_LANGUAGE}
       OCS_INVENTOTRY_INSTALL: true         # should be 'true' if Ocsinventory does not install. After installation please set to 'false'
       OCS_DB_SERVER: ${OCS_DB_SERVER}
       OCS_DB_USER: ${OCS_DB_USER}
@@ -28,7 +29,7 @@ services:
       OCS_DB_NAME: ${OCS_DB_NAME}
       # See documentation to set up SSL for MySQL
       OCS_SSL_ENABLED: 0
-      OCS_DISABLE_API_MODE: 0              #  comment this var out, if api should not be activated 
+      OCS_DISABLE_API_MODE: 0              # comment this var, if api should not be activated
     depends_on:
       - ocsdb
     hostname: ${HOSTNAME1}.${DOMAINNAME}
