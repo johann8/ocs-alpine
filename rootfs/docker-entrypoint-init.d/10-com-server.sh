@@ -47,6 +47,14 @@ if [ -f ${SRV_CONF_FILE} ]; then
 	done
 fi
 
+# Set language
+if [[ -n ${PREFERRED_LANGUAGE} ]]; then
+   echo "Applying Config PREFERRED_LANGUAGE=${PREFERRED_LANGUAGE} from environment variable."
+   sed -i -e "s/en_GB/${PREFERRED_LANGUAGE}/" /usr/share/ocsinventory-reports/ocsreports/var.php
+else
+   echo "Info: Variable PREFERRED_LANGUAGE is not set."
+fi
+
 # Permissions
 chown -R $APACHE_RUN_USER: $OCS_LOG_DIR
 
