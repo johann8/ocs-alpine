@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # set variables
-_VERSION=2.12.3.3
+_VERSION=2.12.4
 _TAG=alpine-ocs
 
 # build image glpi
