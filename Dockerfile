@@ -2,25 +2,30 @@ ARG BASE_IMAGE=alpine:3.22
 
 FROM ${BASE_IMAGE}
 
-LABEL maintainer="JH <jh@localhost>"
+LABEL maintainer="JH <jh@localhost>" \
+      Description="Docker container OCS based on Alpine Linux."
 
 ARG BUILD_DATE
 ARG NAME
 ARG VCS_REF
-ARG VERSION
+ARG OCS_VERSION=2.12.6
+ARG PHP_VERSION=83
+
+ARG APK_FLAGS="add --no-cache"
 
 LABEL org.label-schema.schema-version="1.0" \
       org.label-schema.build-date=$BUILD_DATE \
-      org.label-schema.name=$NAME \
+      org.label-schema.name=ocsinventory \
       org.label-schema.vcs-ref=$VCS_REF \
-      org.label-schema.vcs-url="https://github.com/johann8/" \
-      org.label-schema.version=$VERSION
+      org.label-schema.vcs-url="https://github.com/johann8/ocs-alpine"
 
-ENV OCS_VERSION 2.12.4
-
-ENV MOD_PERL_VERSION 2.0.13
-
-ARG APK_FLAGS="add --no-cache"
+# set env
+ENV OCS_VERSION=${OCS_VERSION}
+ENV MOD_PERL_VERSION=2.0.13
+ENV TZ=Europe/Berlin
+ENV PHP_VERSION=${PHP_VERSION}
+ENV UPLOAD_MAX_FILESIZE=100M
+ENV POST_MAX_SIZE=50M
 
 ENV APACHE_RUN_USER=apache \
     APACHE_RUN_GROUP=apache \
@@ -45,13 +50,7 @@ ENV APACHE_RUN_USER=apache \
     OCS_SSL_CERT=/path/to/cert \
     OCS_SSL_CA=/path/to/ca
 
-ENV TZ Europe/Berlin
-#ENV PHP_VERSION 82
-ENV PHP_VERSION 83
-#ENV PHP_VERSION 84
-ENV UPLOAD_MAX_FILESIZE 100M
-ENV POST_MAX_SIZE 50M
-
+# Run build
 RUN apk ${APK_FLAGS} \
     wget \
     curl \
