@@ -2,9 +2,9 @@
 
 # set variables
 # set variables
-D_IMAGE_VERSION=2.12.6
-D_IMAGE_TAG=alpine-ocs
-BASE_IMAGE=alpine:3.22
+D_IMAGE_VERSION=2.12.6.2.1
+D_IMAGE_TAG=alpine-ocs-dev-3.24
+BASE_IMAGE=alpine:3.24
 OCS_VERSION=2.12.6
 PHP_VERSION=83
 
@@ -28,14 +28,14 @@ if ! [ ${_BUILD} = 0 ]; then
 else
    echo "Docker Image build successful"
    docker images -a
-   docker tag johann8/${D_IMAGE_TAG}:${D_IMAGE_VERSION} johann8/${D_IMAGE_TAG}:latest
+#   docker tag johann8/${D_IMAGE_TAG}:${D_IMAGE_VERSION} johann8/${D_IMAGE_TAG}:latest
 fi
 
 #push image to dockerhub
 if [ ${_BUILD} = 0 ]; then
    echo "Pushing docker images to dockerhub..."
    docker push johann8/${D_IMAGE_TAG}:${D_IMAGE_VERSION}
-   docker push johann8/${D_IMAGE_TAG}:latest
+#   docker push johann8/${D_IMAGE_TAG}:latest
    _PUSH=$?
    docker images -a |grep ocs
 fi
@@ -52,7 +52,7 @@ fi
 #delete build
 if [ ${_PUSH} = 0 ]; then
    echo "Deleting docker images..."
-   docker rmi johann8/${D_IMAGE_TAG}:latest
+#   docker rmi johann8/${D_IMAGE_TAG}:latest
    docker rmi johann8/${D_IMAGE_TAG}:${D_IMAGE_VERSION}
    #docker rmi $(docker images -f "dangling=true" -q)
    docker images -a
